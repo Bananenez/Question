@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Surprise 💫</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 20vh;
+    }
+    h1 { font-size: 3em; }
+    button {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>J’ai quelque chose à te dire… 💌</h1>
+<button onclick="reveal()">Clique ici</button>
+
+<script>
+  function reveal() {
+    document.body.innerHTML = "<h1>Surprise ❤️</h1><p>…</p>";
+  }
+</script>
+
+</body>
+</html>
