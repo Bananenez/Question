@@ -7,7 +7,6 @@ yesMusic.volume = 0.6;
 
 let musicStarted = false;
 
-
 const quiz = [
     { q: "Quelle est ma boisson préférée ?", a: ["Redbull", "IceTea", "DrPepper", "Jus"], c: 2 },
     { q: "Mon plus gros défaut ?", a: ["Trop parfait", "Têtu", "Lent", "Pas drôle"], c: 0 },
@@ -29,7 +28,7 @@ const images = [
     "images/bisousGPbx.jpg",
     "images/axolote.jpg",
     "images/pomme.jpg",
-    "images/too.jpg"
+    "images/too.jpg" // ✅ dernière -> au-dessus
 ];
 
 let index = 0;
@@ -38,18 +37,68 @@ let noCount = 0;
 const questionEl = document.getElementById("question");
 const answersEl = document.getElementById("answers");
 const messageEl = document.getElementById("message");
+
 const leftImages = document.getElementById("leftImages");
 const rightImages = document.getElementById("rightImages");
+const topImage = document.getElementById("topImage");
+
+/* ✅ Compteurs pour alterner */
+let leftCount = 0;
+let rightCount = 0;
+let nextSide = "left"; // "left" puis "right" puis "left"...
 
 function updateBackground() {
     const pink = Math.floor((index / 10) * 255);
     document.body.style.background = `rgb(255, ${200 - pink/3}, ${220 - pink/4})`;
 }
 
-function addImage(i) {
+function clearAllImages() {
+    leftImages.innerHTML = "";
+    rightImages.innerHTML = "";
+    topImage.innerHTML = "";
+
+    leftCount = 0;
+    rightCount = 0;
+    nextSide = "left";
+}
+
+function appendImg(container, src) {
     const img = document.createElement("img");
-    img.src = images[i];
-    (i % 2 === 0 ? leftImages : rightImages).appendChild(img);
+    img.src = src;
+    container.appendChild(img);
+}
+
+/* ✅ Ajout d’image avec alternance gauche/droite (limité à 4/4),
+      et dernière image au-dessus */
+function addImage(i) {
+    const src = images[i];
+
+    // dernière image -> au-dessus
+    if (i === images.length - 1) {
+        topImage.innerHTML = "";
+        appendImg(topImage, src);
+        return;
+    }
+
+    // On ne remplit que 8 images sur les côtés (4+4)
+    if (leftCount >= 4 && rightCount >= 4) return;
+
+    // Choisir le côté selon alternance, mais si plein -> basculer
+    let sideToUse = nextSide;
+
+    if (sideToUse === "left" && leftCount >= 4) sideToUse = "right";
+    if (sideToUse === "right" && rightCount >= 4) sideToUse = "left";
+
+    if (sideToUse === "left") {
+        appendImg(leftImages, src);
+        leftCount++;
+    } else {
+        appendImg(rightImages, src);
+        rightCount++;
+    }
+
+    // Alterner pour la prochaine fois
+    nextSide = (nextSide === "left") ? "right" : "left";
 }
 
 function showQuestion() {
@@ -62,9 +111,10 @@ function showQuestion() {
         const btn = document.createElement("button");
         btn.className = "choice";
         btn.textContent = text;
+
         btn.onclick = () => {
             if (!musicStarted) {
-                quizMusic.play().catch(()=>{});
+                quizMusic.play().catch(() => {});
                 musicStarted = true;
             }
 
@@ -75,8 +125,7 @@ function showQuestion() {
             } else {
                 messageEl.textContent = "Mauvaise réponse 😏 On recommence depuis le début.";
                 index = 0;
-                leftImages.innerHTML = "";
-                rightImages.innerHTML = "";
+                clearAllImages();
                 setTimeout(showQuestion, 2000);
             }
         };
@@ -121,13 +170,12 @@ function finalQuestion() {
 function celebrate() {
     quizMusic.pause();
     quizMusic.currentTime = 0;
-
     yesMusic.play();
 
     document.getElementById("card").innerHTML = `
     <h1>💖 OUIIIII 💖</h1>
     <p>Joyeuse Saint-Valentin mon amour 🥰</p>
-        <p>Réserve ta soirée le samedi 14/02 pour diner avec moiii 🌸💖🥰</p>
+    <p>Réserve ta soirée le samedi 14/02 pour diner avec moiii 🌸💖🥰</p>
   `;
 
     for (let i = 0; i < 80; i++) {
