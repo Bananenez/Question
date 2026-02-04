@@ -21,15 +21,15 @@ const quiz = [
 ];
 
 const images = [
-    "images/nez.heic",
-    "images/bbl.heic",
+    "images/nez.jpg",
+    "images/bbl.jpg",
     "images/lunettes.jpg",
-    "images/soiréedépart.jpg",
+    "images/soireedepart.jpg",
     "images/teinture.jpg",
     "images/bisousGPbx.jpg",
     "images/axolote.jpg",
-    "images/pomme.heic",
-    "images/too.heic"
+    "images/pomme.jpg",
+    "images/too.jpg"
 ];
 
 let index = 0;
