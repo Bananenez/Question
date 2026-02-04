@@ -9,15 +9,15 @@ let musicStarted = false;
 
 
 const quiz = [
-    { q: "Quelle est ma boisson préférée ?", a: ["Café", "Thé", "Chocolat chaud", "Jus"], c: 0 },
-    { q: "Mon plus gros défaut ?", a: ["Trop parfait", "Têtu", "Toujours sérieux", "Distrait"], c: 1 },
+    { q: "Quelle est ma boisson préférée ?", a: ["Redbull", "IceTea", "DrPepper", "Jus"], c: 2 },
+    { q: "Mon plus gros défaut ?", a: ["Trop parfait", "Têtu", "Lent", "Pas drôle"], c: 0 },
     { q: "Ce que je préfère faire le soir ?", a: ["Sortir", "Regarder un film", "Parler avec toi", "Dormir"], c: 2 },
-    { q: "Ce qui me fait le plus rire ?", a: ["Les blagues nulles", "Toi", "Les memes", "Tout"], c: 1 },
-    { q: "Mon endroit préféré ?", a: ["La mer", "La maison", "Avec toi", "La montagne"], c: 2 },
+    { q: "Ce qui me fait le plus rire ?", a: ["Les pets", "Toi", "Clémence", "J'ai fait caca sur mes mains"], c: 1 },
+    { q: "Mon endroit préféré ?", a: ["La mer", "La maison", "Avec toi", "L'Afrique du Sud"], c: 2 },
     { q: "Ce que je remarque en premier chez toi ?", a: ["Tes yeux", "Ton sourire", "Ta voix", "Tout"], c: 3 },
-    { q: "Ce que je ressens quand je te vois ?", a: ["Rien", "Un sourire", "Un truc bizarre", "Beaucoup trop"], c: 3 },
+    { q: "Ce que je préfère ?", a: ["Chiens", "Ma femme", "Ma maman", "BBL"], c: 1 },
     { q: "Ce que tu représentes pour moi ?", a: ["Une amie", "Quelqu’un d’important", "Mon bonheur", "Tout ça"], c: 3 },
-    { q: "Est-ce que tu me connais bien ?", a: ["Pas sûr", "Un peu", "Oui", "Évidemment"], c: 3 }
+    { q: "Est-ce que tu m'aimes ?", a: ["Pas sûr", "Un peu", "Oui", "Évidemment"], c: 3 }
 ];
 
 const images = [
@@ -63,15 +63,10 @@ function showQuestion() {
         btn.className = "choice";
         btn.textContent = text;
         btn.onclick = () => {
-
-            const quizMusic = new Audio("music-quiz.mp3");
-            quizMusic.loop = true;
-            quizMusic.volume = 0.4;
-
-            const yesMusic = new Audio("music-yes.mp3");
-            yesMusic.volume = 0.6;
-
-            let musicStarted = false;
+            if (!musicStarted) {
+                quizMusic.play().catch(()=>{});
+                musicStarted = true;
+            }
 
             if (i === quiz[index].c) {
                 addImage(index);
@@ -85,6 +80,7 @@ function showQuestion() {
                 setTimeout(showQuestion, 2000);
             }
         };
+
         answersEl.appendChild(btn);
     });
 }
@@ -111,8 +107,8 @@ function finalQuestion() {
             "Tu t’es trompée de bouton 😏",
             "Hmm… essaie encore",
             "Ce bouton n’a pas l’air fiable",
-            "Le bouton Oui devient très attirant 😍",
-            "Dernière chance avant avalanche d’amour 💥"
+            "Le bouton Oui à l'air trop bien non ? 😍",
+            "Dernière chance avant que je m'énerve 💥"
         ];
 
         messageEl.textContent = msgs[Math.min(noCount - 1, msgs.length - 1)];
@@ -131,6 +127,7 @@ function celebrate() {
     document.getElementById("card").innerHTML = `
     <h1>💖 OUIIIII 💖</h1>
     <p>Joyeuse Saint-Valentin mon amour 🥰</p>
+        <p>Réserve ta soirée le samedi 14/02 pour diner avec moiii 🌸💖🥰</p>
   `;
 
     for (let i = 0; i < 80; i++) {
