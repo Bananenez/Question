@@ -1,0 +1,148 @@
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background: rgb(245,245,245);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 1s ease;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 520px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    z-index: 2;
+}
+
+h1 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.choice {
+    background: #e0e0e0;
+}
+
+.choice:hover {
+    background: #d0d0d0;
+}
+
+.yes {
+    background: #ff5a7a;
+    color: white;
+}
+
+.no {
+    background: #ccc;
+}
+
+.message {
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* Images latérales */
+.side {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.side img {
+    width: 100%;
+    border-radius: 12px;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: appear 0.8s forwards;
+}
+
+@keyframes appear {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Animations finales */
+.petal {
+    position: fixed;
+    top: -20px;
+    font-size: 24px;
+    animation: fall linear forwards;
+    pointer-events: none;
+    z-index: 4;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.firework {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: explode 1.2s ease-out forwards;
+    z-index: 4;
+}
+
+@keyframes explode {
+    to {
+        box-shadow:
+                0 0 0 20px rgba(255,90,122,0),
+                0 0 0 40px rgba(255,182,193,0),
+                0 0 0 60px rgba(255,105,180,0);
+    }
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .side {
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .side img {
+        width: 80px;
+    }
+
+    .card {
+        margin: 15px 0;
+    }
+}

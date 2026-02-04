@@ -2,32 +2,25 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Surprise 💫</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: sans-serif;
-      text-align: center;
-      padding-top: 20vh;
-    }
-    h1 { font-size: 3em; }
-    button {
-      font-size: 1.2em;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
-  </style>
+  <title>Est-ce que tu me connais vraiment ? ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>J’ai quelque chose à te dire… 💌</h1>
-<button onclick="reveal()">Clique ici</button>
+<div class="container">
+  <div class="side left" id="leftImages"></div>
 
-<script>
-  function reveal() {
-    document.body.innerHTML = "<h1>Surprise ❤️</h1><p>…</p>";
-  }
-</script>
+  <div class="card" id="card">
+    <h1 id="question"></h1>
+    <div id="answers"></div>
+    <div class="message" id="message"></div>
+  </div>
 
+  <div class="side right" id="rightImages"></div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
